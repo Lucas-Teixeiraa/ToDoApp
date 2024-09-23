@@ -42,6 +42,16 @@ class TaskController(private val taskService: TaskService) {
         }
     }
 
+    @PutMapping("/{id}/complete")
+    fun markTaskAsComplete(@PathVariable id: UUID): ResponseEntity<Tasks> {
+        val updatedTask = taskService.markTaskAsComplete(id)
+        return if (updatedTask != null) {
+            ResponseEntity(updatedTask, HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     fun deleteTask(@PathVariable id: UUID): ResponseEntity<Void> {

@@ -16,12 +16,12 @@ class TaskService(private val taskRepository: TaskRepository) {
 
     fun createTask(taskDto: TaskRequestDTO): Tasks {
         val task = Tasks(
-            id = UUID.randomUUID(),  // Gera um novo UUID
+            id = UUID.randomUUID(),
             title = taskDto.title,
             description = taskDto.description,
             completed = taskDto.completed
         )
-        return taskRepository.save(task)  // Salva a nova tarefa
+        return taskRepository.save(task)
     }
 
     fun updateTask(id: UUID, updatedTask: Tasks): Tasks {
@@ -30,6 +30,12 @@ class TaskService(private val taskRepository: TaskRepository) {
         existingTask.description = updatedTask.description
         existingTask.completed = updatedTask.completed
         return taskRepository.save(existingTask)
+    }
+
+    fun markTaskAsComplete(id: UUID): Tasks? {
+        val task = taskRepository.findById(id).orElse(null) ?: return null
+        task.completed = !task.completed
+        return taskRepository.save(task)
     }
 
     fun deleteTask(id: UUID): Boolean {
