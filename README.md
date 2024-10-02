@@ -16,6 +16,9 @@
 > Documentacao:
 > * Swagger
 
+> Ferramentas
+> * Docker
+
 > Rotas: 
 > * ### GET (/tasks): retorna as tarefas criadas
 > * ### POST (/tasks): cria uma nova tarefa
